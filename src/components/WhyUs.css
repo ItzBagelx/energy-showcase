@@ -1,0 +1,190 @@
+/* WhyUs.css */
+.why-us-section {
+  background: var(--clr-forest);
+  position: relative;
+}
+.why-us-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 80% 20%, hsla(88,85%,52%,0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Trust pillars 6-up grid */
+.pillars-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  margin-bottom: var(--space-16);
+}
+@media (min-width: 40rem) {
+  .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 64rem) {
+  .pillars-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.pillar-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.pillar-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+.pillar-title {
+  font-size: var(--text-lg);
+  color: var(--clr-cream);
+  line-height: 1.2;
+}
+.pillar-text {
+  font-size: var(--text-sm);
+  color: var(--clr-muted);
+  line-height: 1.75;
+  flex-grow: 1;
+}
+
+/* Certification bar */
+.certs-bar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-8) var(--space-8);
+  background: var(--clr-pine);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-16);
+}
+@media (min-width: 40rem) {
+  .certs-bar {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+  }
+}
+.certs-label {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--clr-muted);
+  white-space: nowrap;
+}
+.certs-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+.cert-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-3) var(--space-5);
+  background: var(--clr-forest);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  min-width: 90px;
+  text-align: center;
+}
+.cert-name {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 900;
+  color: var(--clr-lime);
+}
+.cert-num {
+  font-size: var(--text-xs);
+  color: var(--clr-muted);
+  margin-top: var(--space-1);
+}
+
+/* Process steps */
+.process-section {
+  text-align: center;
+}
+.process-heading {
+  font-size: var(--text-2xl);
+  color: var(--clr-cream);
+  margin-bottom: var(--space-10);
+}
+.process-steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: stretch;
+}
+@media (min-width: 64rem) {
+  .process-steps {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0;
+  }
+}
+
+.process-step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex: 1;
+}
+@media (min-width: 64rem) {
+  .process-step {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.process-step-inner {
+  flex: 1;
+  background: var(--clr-pine);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6) var(--space-6);
+  text-align: left;
+  transition: border-color var(--transition-base), transform var(--transition-base);
+}
+.process-step-inner:hover {
+  border-color: var(--clr-lime-glow);
+  transform: translateY(-2px);
+}
+
+.process-number {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 900;
+  color: var(--clr-lime-glow);
+  line-height: 1;
+  margin-bottom: var(--space-3);
+  /* Stroke effect using text-shadow for old-browser compat */
+  -webkit-text-stroke: 1px hsla(88,85%,52%,0.5);
+  color: transparent;
+}
+.process-title {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--clr-cream);
+  margin-bottom: var(--space-2);
+}
+.process-text {
+  font-size: var(--text-sm);
+  color: var(--clr-muted);
+  line-height: 1.7;
+}
+
+/* Connector arrow between steps */
+.process-connector {
+  font-size: var(--text-xl);
+  color: var(--clr-lime);
+  opacity: 0.5;
+  flex-shrink: 0;
+  padding-inline: var(--space-2);
+  padding-top: var(--space-8);
+  display: none;
+}
+@media (min-width: 64rem) {
+  .process-connector { display: block; }
+}

@@ -1,0 +1,219 @@
+/* LeadForm.css */
+.lead-form-section {
+  background: linear-gradient(to bottom, var(--clr-pine), var(--clr-forest));
+  position: relative;
+  overflow: hidden;
+}
+.lead-form-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--clr-lime-glow), transparent);
+}
+
+/* Decorative background blob */
+.lead-form-section::after {
+  content: '';
+  position: absolute;
+  bottom: -200px;
+  right: -200px;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, hsla(88,85%,52%,0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.form-wrapper {
+  max-width: 680px;
+  margin-inline: auto;
+  padding: var(--space-10);
+}
+
+/* ── Step Indicator ── */
+.step-indicator {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: var(--space-6);
+}
+/* Connecting line between dots */
+.step-indicator::before {
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  right: 18px;
+  height: 2px;
+  background: var(--clr-border);
+  z-index: 0;
+}
+
+.step-dot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  position: relative;
+  z-index: 1;
+}
+.step-dot-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--clr-border);
+  background: var(--clr-pine);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--clr-muted);
+  transition: border-color var(--transition-base), background var(--transition-base), color var(--transition-base);
+}
+.step-dot-label {
+  font-size: var(--text-xs);
+  color: var(--clr-muted);
+  font-weight: 600;
+  white-space: nowrap;
+  transition: color var(--transition-base);
+}
+.step-dot.active .step-dot-num {
+  border-color: var(--clr-lime);
+  background: var(--clr-lime);
+  color: var(--clr-forest);
+}
+.step-dot.active .step-dot-label { color: var(--clr-lime); }
+.step-dot.done .step-dot-num {
+  border-color: var(--clr-lime);
+  background: var(--clr-lime-glow);
+  color: var(--clr-lime);
+}
+
+/* ── Step content ── */
+.form-step {
+  margin-bottom: var(--space-8);
+}
+.step-title {
+  font-size: var(--text-2xl);
+  color: var(--clr-cream);
+  margin-bottom: var(--space-2);
+}
+.step-subtitle {
+  font-size: var(--text-sm);
+  color: var(--clr-muted);
+  margin-bottom: var(--space-8);
+  line-height: 1.65;
+}
+
+/* Form grid — two column on wide screens */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+@media (min-width: 40rem) {
+  .form-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Field hints */
+.field-hint {
+  font-size: var(--text-xs);
+  color: var(--clr-muted);
+  margin-top: var(--space-1);
+}
+.field-error {
+  font-size: var(--text-xs);
+  color: hsl(0, 80%, 65%);
+  font-weight: 600;
+  margin-top: var(--space-1);
+  display: block;
+}
+
+/* ── Goals fieldset ── */
+.goals-fieldset {
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.goal-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  background: var(--clr-forest);
+  border: 1.5px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--clr-muted);
+  transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+}
+.goal-option:hover {
+  border-color: var(--clr-lime);
+  color: var(--clr-cream);
+}
+.goal-option.selected {
+  border-color: var(--clr-lime);
+  color: var(--clr-cream);
+  background: var(--clr-lime-glow);
+}
+.goal-option input[type="checkbox"] {
+  flex-shrink: 0;
+}
+
+/* ── Consent ── */
+.consent-label {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  font-size: var(--text-sm);
+  color: var(--clr-muted);
+  cursor: pointer;
+  line-height: 1.6;
+}
+.consent-label input { margin-top: 3px; flex-shrink: 0; }
+
+/* ── Navigation row ── */
+.form-nav {
+  display: flex;
+  gap: var(--space-4);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--clr-border);
+}
+.ml-auto { margin-left: auto; }
+
+/* ── Success screen ── */
+.form-success {
+  max-width: 520px;
+  margin-inline: auto;
+  text-align: center;
+  padding: var(--space-12) var(--space-10);
+}
+.success-icon {
+  font-size: 4rem;
+  margin-bottom: var(--space-4);
+}
+.success-title {
+  font-size: var(--text-2xl);
+  color: var(--clr-cream);
+  margin-bottom: var(--space-4);
+}
+.success-text {
+  font-size: var(--text-base);
+  color: var(--clr-muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-4);
+}
