@@ -14,15 +14,18 @@
  *   7. Lead Capture Form (Contact)
  *   8. Footer
  */
+import React, { Suspense, lazy } from 'react';
 import { useScrollReveal } from './hooks/useScrollReveal';
 import Header      from './components/Header';
 import Hero        from './components/Hero';
-import Services    from './components/Services';
-import ROICalculator from './components/ROICalculator';
-import WhyUs       from './components/WhyUs';
-import Testimonials from './components/Testimonials';
-import LeadForm    from './components/LeadForm';
-import Footer      from './components/Footer';
+
+const Services      = lazy(() => import('./components/Services'));
+const ROICalculator = lazy(() => import('./components/ROICalculator'));
+const WhyUs         = lazy(() => import('./components/WhyUs'));
+const Testimonials  = lazy(() => import('./components/Testimonials'));
+const LeadForm      = lazy(() => import('./components/LeadForm'));
+const Footer        = lazy(() => import('./components/Footer'));
+
 import './App.css';
 
 export default function App() {
@@ -38,14 +41,22 @@ export default function App() {
 
       <main id="main">
         <Hero />
-        <Services />
-        <ROICalculator />
-        <WhyUs />
-        <Testimonials />
-        <LeadForm />
+        <Suspense fallback={<div style={{ minHeight: '1200px' }} aria-hidden="true" />}>
+          <div className="content-deferred">
+            <Services />
+            <ROICalculator />
+            <WhyUs />
+            <Testimonials />
+            <LeadForm />
+          </div>
+        </Suspense>
       </main>
 
-      <Footer />
+      <Suspense fallback={<div style={{ minHeight: '300px' }} aria-hidden="true" />}>
+        <div className="content-deferred">
+          <Footer />
+        </div>
+      </Suspense>
     </>
   );
 }

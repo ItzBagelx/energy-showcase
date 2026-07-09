@@ -24,3 +24,9 @@
 main#main {
   padding-top: var(--header-h);
 }
+
+/* Defer layout and paint calculations for below-the-fold content */
+.content-deferred {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1200px; /* Provides a generic placeholder height */
+}
