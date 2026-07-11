@@ -7,7 +7,7 @@
  *  3. Micro-Hydro Power
  *
  * Each card has:
- * - Custom SVG icon, eyebrow label, title, and technical description
+ * - Eyebrow label, title, and technical description
  * - Key spec details (expandable accordion)
  * - CTA link
  *
