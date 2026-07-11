@@ -16,83 +16,9 @@
 import { useState } from 'react';
 import './Services.css';
 
-/* ── Inline SVG icons — no network request, theme-aware ── */
-function SolarIcon() {
-  return (
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-      <circle cx="16" cy="16" r="6" fill="currentColor" opacity="0.9" />
-      <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <line x1="16" y1="26" x2="16" y2="30" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <line x1="2" y1="16" x2="6" y2="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <line x1="26" y1="16" x2="30" y2="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <line x1="5.86" y1="5.86" x2="8.69" y2="8.69" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <line x1="23.31" y1="23.31" x2="26.14" y2="26.14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <line x1="5.86" y1="26.14" x2="8.69" y2="23.31" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <line x1="23.31" y1="8.69" x2="26.14" y2="5.86" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function BiomassIcon() {
-  return (
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-      <path
-        d="M16 28C16 28 6 20 6 12a10 10 0 0 1 20 0c0 8-10 16-10 16z"
-        fill="currentColor"
-        opacity="0.2"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M16 28V14"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M16 20 C13 18 10 14 10 14"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-      <path
-        d="M16 17 C19 15 21 12 21 12"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function HydroIcon() {
-  return (
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-      <path
-        d="M16 4 C16 4 8 14 8 20 a8 8 0 0 0 16 0 C24 14 16 4 16 4z"
-        fill="currentColor"
-        opacity="0.2"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M11 22 a5 5 0 0 0 10 0"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        fill="none"
-        opacity="0.7"
-      />
-    </svg>
-  );
-}
-
 const SERVICES = [
   {
     id: 'solar',
-    Icon: SolarIcon,
     eyebrow: 'Solar PV & Battery',
     title: 'Sun-Powered, Grid-Independent Living',
     summary:
@@ -112,7 +38,6 @@ const SERVICES = [
   },
   {
     id: 'biomass',
-    Icon: BiomassIcon,
     eyebrow: 'Biomass Heating',
     title: 'Carbon-Neutral Heat From Managed Woodland',
     summary:
@@ -132,7 +57,6 @@ const SERVICES = [
   },
   {
     id: 'hydro',
-    Icon: HydroIcon,
     eyebrow: 'Micro-Hydro Power',
     title: 'Harness Flowing Water for 24/7 Generation',
     summary:
@@ -190,7 +114,7 @@ export default function Services() {
 }
 
 function ServiceCard({ service, isExpanded, onToggle, delayClass }) {
-  const { id, Icon, eyebrow, title, summary, specs, detail, cta, accentColor, accentGlow } = service;
+  const { id, eyebrow, title, summary, specs, detail, cta, accentColor, accentGlow } = service;
 
   return (
     <article
@@ -201,11 +125,6 @@ function ServiceCard({ service, isExpanded, onToggle, delayClass }) {
     >
       {/* Glow accent top bar */}
       <div className="service-card-bar" aria-hidden="true" />
-
-      {/* Icon badge */}
-      <div className="service-icon-wrap" aria-hidden="true">
-        <Icon />
-      </div>
 
       {/* Eyebrow */}
       <span className="service-eyebrow">{eyebrow}</span>

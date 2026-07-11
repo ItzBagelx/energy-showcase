@@ -65,20 +65,6 @@
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
-/* Icon badge */
-.service-icon-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 52px;
-  height: 52px;
-  border-radius: var(--radius-md);
-  background: var(--accent-glow, var(--clr-lime-glow));
-  border: 1px solid hsla(147, 30%, 60%, 0.15);
-  color: var(--accent, var(--clr-lime));
-  flex-shrink: 0;
-}
-
 .service-eyebrow {
   font-size: var(--text-xs);
   font-weight: 700;
