@@ -30,31 +30,53 @@
   }
 }
 
-/* Service card overrides */
+/* ── Service card ── */
 .service-card {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
-  background: var(--clr-pine);
+  padding: var(--space-6);
+  background: hsla(147, 40%, 12%, 0.7);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
   position: relative;
   overflow: hidden;
+  transition: transform 0.3s var(--ease-out-quart), box-shadow 0.3s var(--ease-out-quart), border-color 0.3s;
+  backdrop-filter: blur(8px);
 }
 
-/* Coloured top border using CSS custom property */
-.service-card::before {
-  content: '';
+.service-card:hover {
+  transform: translateY(-4px);
+  border-color: hsla(147, 40%, 50%, 0.3);
+  box-shadow:
+    var(--shadow-card),
+    0 0 40px var(--accent-glow, hsla(88, 85%, 52%, 0.12));
+}
+
+/* Thin coloured top bar */
+.service-card-bar {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 3px;
-  background: var(--accent, var(--clr-lime));
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent, var(--clr-lime)), transparent);
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
-.service-icon {
-  font-size: 2.5rem;
-  line-height: 1;
+/* Icon badge */
+.service-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  background: var(--accent-glow, var(--clr-lime-glow));
+  border: 1px solid hsla(147, 30%, 60%, 0.15);
+  color: var(--accent, var(--clr-lime));
+  flex-shrink: 0;
 }
 
 .service-eyebrow {
@@ -67,8 +89,9 @@
 
 .service-title {
   font-size: var(--text-xl);
+  font-family: var(--font-display);
   color: var(--clr-cream);
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
 .service-summary {
@@ -78,13 +101,13 @@
   flex-grow: 1;
 }
 
-/* Specs table */
+/* ── Specs table ── */
 .service-specs {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-  padding: var(--space-4);
-  background: hsla(147, 30%, 10%, 0.6);
+  gap: 0;
+  padding: var(--space-3) var(--space-4);
+  background: hsla(147, 55%, 5%, 0.5);
   border-radius: var(--radius-md);
   border: 1px solid var(--clr-border);
 }
@@ -94,7 +117,7 @@
   align-items: baseline;
   gap: var(--space-4);
   font-size: var(--text-xs);
-  padding-block: var(--space-1);
+  padding-block: var(--space-2);
 }
 .spec-row + .spec-row {
   border-top: 1px solid var(--clr-border);
@@ -110,37 +133,40 @@
   text-align: right;
 }
 
-/* Accordion */
+/* ── Accordion ── */
 .service-accordion-btn {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   padding: var(--space-3) var(--space-4);
-  background: hsla(147, 30%, 10%, 0.4);
+  background: transparent;
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-md);
-  color: var(--accent, var(--clr-lime));
+  color: var(--clr-muted);
+  font-family: var(--font-body);
   font-size: var(--text-sm);
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
-  transition: background var(--transition-fast);
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
 }
 .service-accordion-btn:hover {
-  background: hsla(147, 30%, 10%, 0.7);
+  background: hsla(147, 30%, 15%, 0.5);
+  border-color: hsla(147, 30%, 50%, 0.3);
+  color: var(--clr-cream);
 }
 
-.accordion-arrow {
-  display: inline-block;
-  font-size: var(--text-lg);
-  transition: transform var(--transition-base);
-  transform: rotate(90deg);
+.accordion-chevron {
+  display: inline-flex;
+  align-items: center;
+  color: var(--accent, var(--clr-lime));
+  transition: transform 0.3s var(--ease-out-quart);
 }
-.accordion-arrow.open {
-  transform: rotate(-90deg);
+.accordion-chevron.open {
+  transform: rotate(180deg);
 }
 
-/* Expandable detail */
+/* ── Expandable detail ── */
 .service-detail {
   display: grid;
   grid-template-rows: 0fr;
@@ -158,15 +184,23 @@
   padding-top: var(--space-3);
 }
 
-/* CTA */
+/* ── CTA link ── */
 .service-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
   margin-top: auto;
-  border-color: var(--accent, var(--clr-lime));
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid hsla(147, 30%, 50%, 0.2);
   color: var(--accent, var(--clr-lime));
   font-size: var(--text-sm);
-  padding-block: 0.6rem;
-  text-align: center;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s, gap 0.2s;
 }
 .service-cta:hover {
-  background: hsla(147, 30%, 60%, 0.05);
+  background: var(--accent-glow, var(--clr-lime-glow));
+  border-color: var(--accent, var(--clr-lime));
+  gap: var(--space-3);
 }

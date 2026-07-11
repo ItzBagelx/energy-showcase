@@ -7,7 +7,7 @@
  *  3. Micro-Hydro Power
  *
  * Each card has:
- * - Icon, title, and technical description
+ * - Custom SVG icon, eyebrow label, title, and technical description
  * - Key spec details (expandable accordion)
  * - CTA link
  *
@@ -16,10 +16,83 @@
 import { useState } from 'react';
 import './Services.css';
 
+/* ── Inline SVG icons — no network request, theme-aware ── */
+function SolarIcon() {
+  return (
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <circle cx="16" cy="16" r="6" fill="currentColor" opacity="0.9" />
+      <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <line x1="16" y1="26" x2="16" y2="30" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <line x1="2" y1="16" x2="6" y2="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <line x1="26" y1="16" x2="30" y2="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <line x1="5.86" y1="5.86" x2="8.69" y2="8.69" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <line x1="23.31" y1="23.31" x2="26.14" y2="26.14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <line x1="5.86" y1="26.14" x2="8.69" y2="23.31" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <line x1="23.31" y1="8.69" x2="26.14" y2="5.86" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function BiomassIcon() {
+  return (
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <path
+        d="M16 28C16 28 6 20 6 12a10 10 0 0 1 20 0c0 8-10 16-10 16z"
+        fill="currentColor"
+        opacity="0.2"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M16 28V14"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M16 20 C13 18 10 14 10 14"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+      <path
+        d="M16 17 C19 15 21 12 21 12"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function HydroIcon() {
+  return (
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <path
+        d="M16 4 C16 4 8 14 8 20 a8 8 0 0 0 16 0 C24 14 16 4 16 4z"
+        fill="currentColor"
+        opacity="0.2"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M11 22 a5 5 0 0 0 10 0"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        fill="none"
+        opacity="0.7"
+      />
+    </svg>
+  );
+}
+
 const SERVICES = [
   {
     id: 'solar',
-    icon: '☀️',
+    Icon: SolarIcon,
     eyebrow: 'Solar PV & Battery',
     title: 'Sun-Powered, Grid-Independent Living',
     summary:
@@ -34,12 +107,12 @@ const SERVICES = [
     detail:
       'Our hybrid inverter topology means your system can run entirely off-grid during outages, automatically switching loads to battery without interrupting your appliances. We size battery banks using your precise consumption profile — not just rule-of-thumb estimates — so you never over-invest.',
     cta: 'Explore Solar Solutions',
-    gradient: 'linear-gradient(135deg, hsl(45,90%,25%) 0%, hsl(147,55%,9%) 100%)',
     accentColor: 'hsl(45, 90%, 58%)',
+    accentGlow: 'hsla(45, 90%, 58%, 0.15)',
   },
   {
     id: 'biomass',
-    icon: '🌿',
+    Icon: BiomassIcon,
     eyebrow: 'Biomass Heating',
     title: 'Carbon-Neutral Heat From Managed Woodland',
     summary:
@@ -54,12 +127,12 @@ const SERVICES = [
     detail:
       'The UK Boiler Upgrade Scheme (BUS) currently provides a £5,000 grant for biomass boiler installations in eligible properties. Our MCS and HETAS accreditations are required to access this funding. We handle the grant application paperwork end-to-end — you simply choose your fuel and we do the rest.',
     cta: 'Explore Biomass Heating',
-    gradient: 'linear-gradient(135deg, hsl(115,50%,18%) 0%, hsl(147,55%,9%) 100%)',
-    accentColor: 'hsl(115, 60%, 50%)',
+    accentColor: 'hsl(88, 85%, 52%)',
+    accentGlow: 'hsla(88, 85%, 52%, 0.15)',
   },
   {
     id: 'hydro',
-    icon: '💧',
+    Icon: HydroIcon,
     eyebrow: 'Micro-Hydro Power',
     title: 'Harness Flowing Water for 24/7 Generation',
     summary:
@@ -74,20 +147,17 @@ const SERVICES = [
     detail:
       'Our preferred Turgo impulse turbines are particularly suited to UK streams: they handle sediment better than Pelton wheels, are more compact, and tolerate flow variation across seasons. We model your watercourse using EA river gauge data and on-site flow measurement to provide a guaranteed annual generation estimate.',
     cta: 'Explore Micro-Hydro',
-    gradient: 'linear-gradient(135deg, hsl(210,60%,18%) 0%, hsl(147,55%,9%) 100%)',
     accentColor: 'hsl(210, 80%, 60%)',
+    accentGlow: 'hsla(210, 80%, 60%, 0.15)',
   },
 ];
 
 export default function Services() {
-  // Track which card's detail panel is expanded
   const [expanded, setExpanded] = useState(null);
-
   const toggle = (id) => setExpanded((prev) => (prev === id ? null : id));
 
   return (
     <section className="services-section" id="services" aria-labelledby="services-heading">
-      {/* Section header */}
       <div className="container">
         <div className="section-header reveal">
           <span className="section-eyebrow">Our Technologies</span>
@@ -103,7 +173,6 @@ export default function Services() {
           </p>
         </div>
 
-        {/* Service cards grid */}
         <div className="services-grid" role="list">
           {SERVICES.map((service, i) => (
             <ServiceCard
@@ -120,19 +189,23 @@ export default function Services() {
   );
 }
 
-/* ── Individual Service Card ── */
 function ServiceCard({ service, isExpanded, onToggle, delayClass }) {
-  const { id, icon, eyebrow, title, summary, specs, detail, cta, accentColor } = service;
+  const { id, Icon, eyebrow, title, summary, specs, detail, cta, accentColor, accentGlow } = service;
 
   return (
     <article
-      className={`service-card card reveal ${delayClass}`}
+      className={`service-card reveal ${delayClass}`}
       role="listitem"
-      style={{ '--accent': accentColor }}
+      style={{ '--accent': accentColor, '--accent-glow': accentGlow }}
       aria-labelledby={`svc-title-${id}`}
     >
-      {/* Icon */}
-      <div className="service-icon" aria-hidden="true">{icon}</div>
+      {/* Glow accent top bar */}
+      <div className="service-card-bar" aria-hidden="true" />
+
+      {/* Icon badge */}
+      <div className="service-icon-wrap" aria-hidden="true">
+        <Icon />
+      </div>
 
       {/* Eyebrow */}
       <span className="service-eyebrow">{eyebrow}</span>
@@ -143,7 +216,7 @@ function ServiceCard({ service, isExpanded, onToggle, delayClass }) {
       {/* Summary */}
       <p className="service-summary">{summary}</p>
 
-      {/* Technical specs table */}
+      {/* Technical specs */}
       <dl className="service-specs">
         {specs.map(({ label, value }) => (
           <div key={label} className="spec-row">
@@ -153,7 +226,7 @@ function ServiceCard({ service, isExpanded, onToggle, delayClass }) {
         ))}
       </dl>
 
-      {/* Expandable detail panel (accordion) */}
+      {/* Accordion */}
       <button
         className="service-accordion-btn"
         aria-expanded={isExpanded}
@@ -161,8 +234,12 @@ function ServiceCard({ service, isExpanded, onToggle, delayClass }) {
         onClick={onToggle}
         id={`svc-accordion-${id}`}
       >
-        {isExpanded ? 'Show less' : 'Technical deep-dive'}
-        <span className={`accordion-arrow${isExpanded ? ' open' : ''}`} aria-hidden="true">›</span>
+        <span>{isExpanded ? 'Show less' : 'Technical deep-dive'}</span>
+        <span className={`accordion-chevron${isExpanded ? ' open' : ''}`} aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M3 5l4 4 4-4" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </span>
       </button>
 
       <div
@@ -175,8 +252,11 @@ function ServiceCard({ service, isExpanded, onToggle, delayClass }) {
       </div>
 
       {/* CTA */}
-      <a href="#contact" className="service-cta btn btn-outline">
-        {cta} →
+      <a href="#contact" className="service-cta">
+        {cta}
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
       </a>
     </article>
   );
