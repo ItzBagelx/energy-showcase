@@ -171,11 +171,8 @@ function ServiceCard({ service, isExpanded, onToggle, delayClass }) {
       </div>
 
       {/* CTA */}
-      <a href="#contact" className="service-cta">
+      <a href="#contact" className="btn btn-primary w-full text-center service-cta">
         {cta}
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-          <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
       </a>
     </article>
   );
